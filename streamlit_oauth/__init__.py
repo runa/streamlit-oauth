@@ -66,9 +66,9 @@ class OAuth2Component:
         raise Exception("STATE DOES NOT MATCH OR OUT OF DATE")
       if 'code' in result:
         result['token'] = asyncio.run(self.client.get_access_token(result['code'], redirect_uri))
-      if 'id_token' in result:
-        # TODO: verify id_token
-        result['id_token'] = base64.b64decode(result['id_token'].split('.')[1] + '==')
+        if 'id_token' in result['token']:
+          # TODO: verify id_token
+          result['id_token'] = base64.b64decode(result['id_token'].split('.')[1] + '==')
 
     return result
   
