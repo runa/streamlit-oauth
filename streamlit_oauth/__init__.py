@@ -68,7 +68,7 @@ class OAuth2Component:
         result['token'] = asyncio.run(self.client.get_access_token(result['code'], redirect_uri))
         if 'id_token' in result['token']:
           # TODO: verify id_token
-          result['id_token'] = base64.b64decode(result['id_token'].split('.')[1] + '==')
+          result['id_token'] = base64.b64decode(result['token']['id_token'].split('.')[1] + '==')
 
     return result
   
